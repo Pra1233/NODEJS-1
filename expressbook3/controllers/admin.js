@@ -41,13 +41,13 @@ exports.getEditProduct = (req, res, next) => {//2
 exports.postEditProduct = (req, res, next) => {
 //create new product remove existing product
 const prodId=req.body.productId; //hidden in ejs
-const updatedTitle=req.body.title;
+const updatedTitle=req.body.title;  
 const updatedPrice=req.body.price;
 const updatedImageUrl=req.body.imageUrl;
 const updatedDescription =req.body.description;
-const updatedProduct=new Product(prodId,)
-
-
+const updatedProduct=new Product(prodId,updatedTitle,updatedImageUrl,updatedPrice,updatedDescription);
+updatedProduct.save();
+res.redirect('/admin/products');
 }; 
 
 exports.getProducts = (req, res, next) => {
