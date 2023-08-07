@@ -48,6 +48,19 @@ fs.writeFile(p, JSON.stringify(updatedProducts), err => {
     });
   }
 
+ static deleteById(id){
+  getProductsFromFile(products => {
+   const updatedProduct=products.filter(product => id!==product.id); //if id not equal than keep item
+  fs.writeFile(p,JSON.stringify(updatedProduct),(e)=>{
+  
+    if(!e){
+
+    }
+    
+  });
+  });
+}
+
   static fetchAll(cb) {
     getProductsFromFile(cb);
   }

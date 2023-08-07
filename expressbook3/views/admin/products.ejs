@@ -30,7 +30,9 @@
                                     <!-- Edit button -->
                                     <a href="/admin/edit-product/<%= product.id %>?edit=true" class="btn">Edit</a>
                                    
-                                    <form action="/admin/delete-product/<%= product.id %>?delete=true" method="POST">
+                                    <!-- delete  step1 -->
+                                    <form action="/admin/delete-product method="POST">
+                                        <input type="hidden" value="<%=product.id %>" name="productId"> 
                                         <button class="btn" type="submit">Delete</button>
                                     </form>
 
