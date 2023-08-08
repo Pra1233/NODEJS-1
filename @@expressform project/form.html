@@ -42,7 +42,7 @@ function Add(event) {
 
   axios .post( "http://localhost:3000/user/adduser",obj)
     .then((res) => {
-      console.log('SSSS',res.data.newUserDetail);
+      // console.log('SSSS',res.data.newUserDetail);
       screen(res.data.newUserDetail); 
     })
     .catch((e) =>{

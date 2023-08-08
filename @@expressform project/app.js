@@ -37,7 +37,7 @@ app.get('/user/getuser',async (req,res)=>{
         res.status(200).json({allUsers:users});  
     }
 catch(e){
-    console.log('Get user is fail',e);
+    console.log('Get user is fail',JSON.stringify(e));
     res.status(500).json({error:e});
 }
 })
