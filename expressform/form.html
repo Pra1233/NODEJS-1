@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box mg-4">
+        <form class="form" onsubmit="Add(event)" method="POST">
+          <label class="l1">Item Name: </label>
+          <input type="text" class="name" name="name" placeholder="Enter Name Of Item" />
+
+          <label class="l2">Email: </label>
+          <input   type="text" class="email"  name="email" placeholder="Enter Email" />
+
+          <label class="l3">Phone No: </label>
+          <input type="number" class="phone" name="phone" placeholder="Enter Phone No" />
+          <input type="submit"  class="btn btn-dark"id="btn" value="Add Item"/><br />
+        </form>
+      </div>
+      <div class="box mg-2">
+        <ul class="ul" id="ul"></ul>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.js"></script> 
+    <script >
+function Add(event) {
+  event.preventDefault();
+  const name = event.target.name.value;
+  const email =  event.target.email.value;
+  const phone =  event.target.phone.value;
+
+  const obj = {
+    name,
+    email,
+    phone,
+  };
+
+  axios .post( "http://localhost:3000/user/adduser",obj)
+    .then((res) => {
+      console.log('SSSS',res.data.newUserDetail);
+      screen(res.data.newUserDetail); 
+    })
+    .catch((e) =>{
+      document.body.innerHTML=  document.body.innerHTML +'<h4> Something wrong</h4>';
+      console.log(e);
+    });
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  axios.get("http://localhost:3000/user/getuser")
+    .then((res) => {
+      // console.log(res);
+      // console.log(res.data.allUsers);
+      res.data.allUsers.forEach((element) => {
+        screen(element);
+      });
+    })
+    .catch((e) => console.log(e));
+});
+
+function screen(obj) {// single array data
+  document.querySelector(".name").value = "";
+  document.querySelector(".email").value = "";
+  document.querySelector(".phone").value = "";
+  // console.log("OBJECT$$$$$$$",obj);
+  const ul = document.querySelector(".ul");
+  const li = `<li id=${obj._id}>${obj.name} - ${obj.email} - ${obj.phone} 
+    <button onClick=DELETE('${obj.id}')>DELETE</button>
+<button onClick=EDIT('${obj.name}','${obj.email}','${obj.phone}','${obj.id}')>EDIT</button>
+</li>`;
+  ul.innerHTML = ul.innerHTML + li;
+}
+
+
+function EDIT(name,email,phone,id) {
+  // localStorage.removeItem(price);
+  
+  document.querySelector(".name").value = name;
+  document.querySelector(".email").value = email;
+  document.querySelector(".phone").value = phone;
+  DELETE(id);
+}
+ async function DELETE(id) {
+  axios .delete(`http://localhost:3000/user/${id}`)
+    .then((res) => {
+      delScreen(id);
+    })
+    .catch((e) => console.log(e));
+}
+
+function delScreen(id) {
+  const ul = document.getElementById('ul');
+  const li = document.getElementById(id);
+  if(li){
+    ul.removeChild(li);
+  }
+
+}
+    </script>
+
+  </body>
+</html>
+
+
