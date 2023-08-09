@@ -17,16 +17,7 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
-  // Product.findAll({ where: { id: prodId } })
-  //   .then(products => {
-  //     res.render('shop/product-detail', {
-  //       product: products[0],
-  //       pageTitle: products[0].title,
-  //       path: '/products'
-  //     });
-  //   })
-  //   .catch(err => console.log(err));
-  Product.findById(prodId)
+  Product.findByPk(prodId)
     .then(product => {
       res.render('shop/product-detail', {
         product: product,
@@ -52,40 +43,73 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
-  Cart.getCart(cart => {
-    Product.fetchAll(products => {
-      const cartProducts = [];
-      for (product of products) {
-        const cartProductData = cart.products.find(
-          prod => prod.id === product.id
-        );
-        if (cartProductData) {
-          cartProducts.push({ productData: product, qty: cartProductData.qty });
-        }
-      }
+  
+  req.user.getCart().then((cart)=>{
+    // console.log(cart);
+    return cart.getProducts() //we can return product from cart 
+    .then(products=>{ //becase of association  
       res.render('shop/cart', {
         path: '/cart',
         pageTitle: 'Your Cart',
-        products: cartProducts
-      });
-    });
-  });
+        products: products
+      });                          
+  })
+  .catch(e=>console.log(e));
+  })
+  .catch(e=>console.log(e))
 };
 
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId;
-  Product.findById(prodId, product => {
-    Cart.addProduct(prodId, product.price);
-  });
+let fetchedcart;
+let newQuantity = 1;
+ req.user
+ .getCart()
+ .then(cart=>{
+fetchedcart=cart; 
+  return cart.getProducts({where:{id:prodId}}) //in cart product exist increment by 1
+ })
+ .then(products=>{//array of single product
+  let product; //undefine
+  if(products.length>0){
+    product=products[0];
+  }
+
+  if(product){//not undefine
+const oldQuantity=product.cartItem.quantity;//sequelize help us to access in between table
+newQuantity=oldQuantity+1;
+return product;
+// return fetchedcart.addProduct(product,{through:{quantity:newQuantity}})
+  }
+  //not product found of that id
+  return Product.findByPk(prodId);
+})
+  .then(product=>{ //adding product first time
+   return fetchedcart.addProduct(product,{through:{quantity:newQuantity}}); 
+ 
+})
+.then(() => {
   res.redirect('/cart');
+})
+.catch(err => console.log(err));
 };
 
 exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  Product.findById(prodId, product => {
-    Cart.deleteProduct(prodId, product.price);
+req.user.getCart()
+.then(cart=>{
+  return cart.getProducts({where:{id:prodId}});
+})
+.then(products=>{
+ const product=products[0];
+ return product.cartItem.destroy();
+})
+  .then((res)=>{
     res.redirect('/cart');
-  });
+  })
+  .catch(e=>console.log(e));
+
+
 };
 
 exports.getOrders = (req, res, next) => {

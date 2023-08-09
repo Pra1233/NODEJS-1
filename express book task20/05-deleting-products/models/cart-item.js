@@ -1,14 +1,13 @@
 const Sequelize=require('sequelize');
 const sequelize=require('../util/database');
-const Cart=sequelize.define('cart',{
+const CartItem=sequelize.define('cartItem',{
   id:{
    type:Sequelize.INTEGER,
    autoIncrement: true,
    allowNull: false,
    primaryKey: true,
   },
-
-}
-)
-module.exports=Cart;
+ quantity:Sequelize.INTEGER,
+});
+module.exports=CartItem;
 //Cart belong to single user but have multiple product
