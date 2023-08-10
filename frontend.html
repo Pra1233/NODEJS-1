@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="box mg-4">
+            <!-- <form class="form" onsubmit="onAdd(e)" > -->
+            <form class="form" onsubmit="onAdd(event)" method="POST" >
+                <label  class="l1">Choose Price: </label>
+                <input type="number"  class="price" name="price" placeholder="Enter Amount">
+
+                <label  class="l2">Choose Dish: </label>
+                <input type="text"  class="dish" name="dish" placeholder="Enter Dish Name"> 
+
+                <label  class="l3">Choose Table: </label>
+
+                <select id="select" >
+                <option value="">Please Choose Table</option>
+                <option value="1" class="opta">1</option>
+                <option value="2" class="optb">2</option>
+                <option value="3" class="optc">3</option>
+                </select>
+
+                <input type="submit" class="btn btn-dark" id="btn" value="Choose Table"><br/>
+               </form> 
+        </div>
+
+        <div class="div">
+       <h3 class="t1">Table 1</h3>
+       <ul class="ult1">
+      </div>
+
+      <div>
+       <h3 class="t2">Table 2</h3>
+       <ul class="ult2">
+      </div>
+
+    <div>
+       <h3 class="t3">Table 3 </h3>
+       <ul class="ult3">    
+    </div>
+
+    <!-- SCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.js"></script>  
+   <script>      
+  function onAdd(event){
+    event.preventDefault();
+ const price=  document.querySelector(".price").value ;
+const dish= document.querySelector(".dish").value ;
+const select=document.getElementById("select").value;
+
+const obj={
+price,dish,select,
+}
+console.log(obj);
+
+axios.post("http://localhost:3000/user/addorder",obj)
+.then(response=>{
+     screen(response.data.newUserDetail);
+     console.log(response.data.newUserDetail);
+})
+.catch(e=>console.log(e));
+ }
+
+ window.addEventListener("DOMContentLoaded", async() => {
+  try{
+    const res= await axios.get("http://localhost:3000/user/getorder")
+  console.log(res);
+  res.data.allUsers.forEach((element) => {
+        screen(element);
+      });
+  }
+  catch(e){console.log(e)}
+});
+
+ function screen(obj) {// single array data
+  document.querySelector(".price").value = "";
+  document.querySelector(".dish").value = "";
+  document.querySelector("#select").value = "";
+  console.log("OBJECT$$$$$$$",obj);
+  // const ul = document.querySelector(".ul");
+  const ult1=document.querySelector(".ult1");
+  const ult2=document.querySelector(".ult2");
+  const ult3=document.querySelector(".ult3");
+  const li = `<li id=${obj.id}>${obj.price} - ${obj.dish} - ${obj.select} 
+    <button onClick=DELETE('${obj.id}','${obj.select}')>DELETE</button>
+<button onClick=EDIT('${obj.id}','${obj.price}','${obj.dish}','${obj.select}')>EDIT</button>
+</li>`;
+
+if(obj.select=='1'){
+  ult1.innerHTML=ult1.innerHTML +li;
+}
+else if(obj.select=='2'){
+ ult2.innerHTML=ult2.innerHTML +li;
+}
+else if(obj.select=='3'){
+ ult3.innerHTML=ult3.innerHTML +li;
+}
+}
+
+ function EDIT(id,price,dish,select) {
+  document.querySelector(".dish").value = dish;
+  document.querySelector(".price").value = price;
+  document.querySelector("#select").value = select;
+  DELETE(id,select);
+}
+async function DELETE(id,select) {
+  try{
+  const res= await axios .delete(`http://localhost:3000/user/orderdelete/${id}`)
+      delScreen(id,select);
+  }
+  catch(e){console.log(e)};
+}
+function delScreen(id,select) {
+  const ult1=document.querySelector(".ult1");
+  const ult2=document.querySelector(".ult2");
+  const ult3=document.querySelector(".ult3");
+  const li = document.getElementById(id);
+
+    if(select=='1') ult1.removeChild(li);
+    else if(select=='2')ult2.removeChild(li);
+    else if(select=='3') ult3.removeChild(li);
+   
+    
+   
+  }
+
+
+
+
+
+
+
+    </script>
+
+
+
+</body>
+</html>
