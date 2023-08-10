@@ -1,17 +1,14 @@
 const path = require('path');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const errorController = require('./controllers/error');
+const sequelize = require('./util/database');
 
 const Product=require('./models/product');
 const User=require('./models/user');
 const Cart=require('./models/cart');
 const CartItem=require('./models/cart-item');
-
-const express = require('express');
-const bodyParser = require('body-parser');
-
-const errorController = require('./controllers/error');
-const sequelize = require('./util/database');
-
-const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');

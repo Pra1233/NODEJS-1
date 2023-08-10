@@ -6,7 +6,7 @@ const userController=require('./controllers/Usercontroller');
 
 // const Sequelize=require('sequelize');
 const sequelize=require('./util/database');
-const User=require('./models/User');
+const userRoutes=require('./routes/UserRoutes');
 
 const app = express();
 app.use (cors ());
@@ -15,11 +15,7 @@ app.use(bodyParser.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.post('/user/addexpense',userController.postAddExpense);
-
-app.get('/user/getexpense',userController.getExpense);
-
-app.delete('/user/expensedelete/:id',userController.deleteExpense);
+app.use(userRoutes);//all routes
 
 sequelize.sync().then(()=>{
     app.listen(3000);
