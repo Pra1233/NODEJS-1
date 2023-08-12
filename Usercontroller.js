@@ -12,8 +12,15 @@ exports.postAddUser=async(req,res,next)=>{
         const name=req.body.name;
         const email=req.body.email;
         const password=req.body.password;
+     const all=await Signup.findAll({where:{email:email}});
+    //  let element=all[0];
+     if(all){
+     console.log("User Already exist Please Login");
+     res.status(500).json({error:element});
+     }
+
  const response= await Signup.create({name:name,email:email,password:password})
-       res.status(200).json({UserDetail:response})
+       res.status(201).json({UserDetail:response})
     }
     catch(e){
         res.status(500).json({error:e});
