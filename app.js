@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(userRoutes);//all routes
-
+// {force:true}
 sequelize.sync().then(()=>{
     app.listen(3000);
 })
