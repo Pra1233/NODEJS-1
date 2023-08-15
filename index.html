@@ -1,72 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SignUp/Login</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense</title>
 </head>
 <body>
   
-  <section class="forms-section">
+<header>
+<div class="container c1">
+ <div class="logo"></div>
+ <div class="p">
+    <h3 class="h3">Welcome to</h3>
+    <h3>Day-To-Day Expenses</h3>
+ </div>
+</div>
+</header>
 
-    <div class="forms">
-      <div class="form-wrapper is-active">
+<main>
+<div class="c2">
+    <p class="c2p">Currency</p>
+    <p>INR-Indian Rupee</p>
+</div>
 
-      <div class="form-wrapper">
-        <button type="button" class="switcher switcher-signup">
-          Sign Up
-          <span class="underline"></span>
-        </button>
-           
-        <!-- Form -->
-        <form  onsubmit="Add(event)"  class="form form-signup" method="POST">
-          <fieldset>
-            <legend>Please, enter your email, password and password confirmation for sign up.</legend>
-            <div class="input-block">
-              <label for="signup-name">Name</label>
-              <input id="signup-name" type="text" class="name" required>
-            </div>
-           
-            <div class="input-block">
-              <label for="signup-email">E-mail</label>
-              <input id="signup-email" type="text" class="email" required>
-            </div>
-            <div class="input-block">
-              <label for="signup-password">Password</label>
-              <input id="signup-password" type="password" class="password" required>
-            </div>
-          </fieldset>
-          <button type="submit" class="btn-signup">Continue</button>
-        </form>
-      </div>
+<div class="c3">
+    <h2 class="h2">Already a user ?</h2>
+    <p class="c3-p">If you have already used this app before and have backed up your data to your Google Drive.Click on find backup to restore your data and continue working on it .</p>
+    
+   <div class="but">
+    <div class="div">
+        <button onclick="window.location.href='./login.html' " >LOGIN</button>
     </div>
-  </section>
+   <div class="div">
+    <button onclick="window.location.href='./signup.html';">I'M A NEW USER</button>
+   </div>
+  
+   </div> 
+</div>
+</main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.js"></script>  
-  <script>
-function Add(e){
-  e.preventDefault();
-const name=document.querySelector('.name').value;
-const email=document.querySelector('.email').value;
-const password=document.querySelector('.password').value;
-const obj={
-  name,email,password,
-}
-onPost(obj); //function
-}
-const onPost=async(obj)=>{
-try{
-const res=await axios.post('http://localhost:3000/user/adduser',obj);
-// console.log(res);
-console.log(res.data.UserDetail);
-}
-catch(e){
-  console.log(e);
-}
-}
-
-  </script>
 </body>
 </html>

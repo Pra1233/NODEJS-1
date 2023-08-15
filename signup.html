@@ -2,49 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./signup/style.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SignUp/Login</title>
+  <title>SignUp</title>
 </head>
 <body>
-  
-  <section class="forms-section">
+
+
 
     <div class="forms">
-      <div class="form-wrapper is-active">
-      <div class="form-wrapper">
-        <button type="button" class="switcher switcher-signup">
-          Sign Up
-          <span class="underline"></span>
-        </button>
-           
-        <!-- Form -->
-        <form  onsubmit="Add(event)"  class="form form-signup" method="POST">
-          <fieldset>
-            <legend>Please, enter your email, password and password confirmation for sign up.</legend>
+ 
+        <form  onsubmit="onSignup(event)"  method="POST">
+          
             <div class="input-block">
               <label for="signup-name">Name</label>
-              <input id="signup-name" type="text" class="name" required>
+              <input type="text" class="name" required>
             </div>
-           
+
             <div class="input-block">
               <label for="signup-email">E-mail</label>
               <input id="signup-email" type="text" class="email" required>
             </div>
+
             <div class="input-block">
               <label for="signup-password">Password</label>
-              <input id="signup-password" type="password" class="password" required>
+              <input  type="password" class="password" required>
             </div>
-          </fieldset>
-          <button type="submit" class="btn-signup">Continue</button>
+
+          <div class="div">
+            <button type="submit" class="btn-signup">Continue</button>
+          </div>
+    
         </form>
-        <a href="../login/login.html"></a>
       </div>
-    </div>
-  </section>
+
+      <div class="btn-login">
+        <button onclick="window.location.href='./login.html' " class="btnlogin">LOGIN If Already a User</button>
+      </div>
+     
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.js"></script>  
-  <script src="script.js" > </script>
-</body>
+  
+<script src="signup.js"></script>
+
+    </body>
 </html>
