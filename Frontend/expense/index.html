@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense</title>
+</head>
+<body>
+  
+<header>
+ <div class="header">
+    <h2>Day to Day Expenses</h2>
+ </div>
+</header>
+
+<main>
+
+    <form  onsubmit = "Expense(event)" method="POST">
+
+  <label>Expense Amount</label>
+  <input type="number" class="amount" placeholder="amount" required>
+
+  <label>Description</label>
+  <input type="text" class="des" placeholder="Description" required>
+
+  <label>Choose Category</label>
+  <select id="category" >
+    <option value="">Please Select Category</option>
+    <option value="1">Fuel</option>
+    <option value="2">Medicine</option>
+    <option value="3">Grocery</option>
+  </select>
+
+  <input type="submit"  value="Submit" class="button">
+    </form>
+
+    <!-- <div class="div">
+        <p class="income"> Total Income(Credit)   </p>
+        <p class="incomeNo">0</p>
+    </div> -->
+    
+    <div class="div2">
+        <p class="expense"> Total Expense(Debit)   </p>
+        <!-- <p class="expenseNo">0</p> -->
+    </div>   
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.js"></script>  
+  
+<script>
+    function Expense(event){
+    event.preventDefault();
+    const amount=document.querySelector(".amount").value;
+    const description=document.querySelector(".des").value;
+    const category=document.querySelector("#category").value;
+   
+
+const obj={
+    amount,description,category,
+}
+console.log(obj);
+PostExpense(obj);
+}
+//we want when we add new item that id should also add
+//1. tokenpass at header,2). post-pass userId:req.user.id 3).attach to middleware.
+const PostExpense=async(obj)=>{
+    const token=localStorage.getItem('token');
+    try{
+    const res=await axios.post("http://localhost:3000/user/postexpense",obj,{
+        headers:{"Authorization":token}//object 
+    });
+   screen(res.data.expense);
+    }
+    catch(e){
+        console.log(e);
+        document.body.innerHTML+=`<h3 style="color:red;">${e}</h3>`
+    }
+
+}
+
+window.addEventListener('DOMContentLoaded',async()=>{
+    const token=localStorage.getItem('token');
+    try{
+        const res=await axios.get("http://localhost:3000/expense/getexpense",{
+            headers:{"Authorization":token}//object
+        });
+        // console.log(res.data.getExpense);
+        res.data.getExpense.forEach(e=>{
+            screen(e);
+        })
+    }
+catch(e){
+    console.log(e);
+    document.body.innerHTML+=`<h3 style="color:red;">${e}</h3>`
+}
+
+})
+function screen(obj){
+    const div2=document.querySelector('.div2');
+ const li = `<li id=${obj.id}>${obj.amount} - ${obj.description} - ${obj.category} 
+<button onClick=DELETE('${obj.id}')>DELETE</button>
+<button onClick=EDIT('${obj.id}','${obj.amount}','${obj.description}','${obj.category}')>EDIT</button>
+</li>`;
+
+div2.innerHTML+=li;
+
+}
+
+const DELETE=async(id)=>{
+    const token=localStorage.getItem('token');
+    try{    
+        const res= await axios .delete(`http://localhost:3000/expense/deleteexpense/${id}`,{
+            headers:{"Authorization":token}
+        });
+      delScreen(id);
+    }
+    catch(e){
+        console.log(e);
+        document.body.innerHTML+=`<h3 style="color:red;">${e}</h3>`
+    }
+}
+
+function delScreen(id){
+    const div2=document.querySelector('.div2');
+    const li=document.getElementById(id);
+    div2.removeChild(li);
+}
+</script>
+
+</body>
+</html>
