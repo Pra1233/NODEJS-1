@@ -111,7 +111,7 @@
                 
                 alert('You are a Premium User Now');
                 PremiumUserMessage();
-               localStorage.setItem('token',res.data.token);
+            //    localStorage.setItem('token',res.data.token);
                ShowLeaderBoard(); //function
             },
          };
@@ -140,7 +140,7 @@ input.onclick=async()=>{
     leaderboard.innerHTML+='<h2>Leaderboard</h2>'
     leaderboardArray.data.forEach(user=>{
         console.log(user);
-        leaderboard.innerHTML+=`<li>Name :${user.name}  Total Expense :${user.total_cost}</li>`
+        leaderboard.innerHTML+=`<li>Name :${user.name}  Total Expense :${user.totalExpense}</li>`
     })
 }
    document.getElementById('message').appendChild(input);    

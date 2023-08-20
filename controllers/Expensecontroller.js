@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt =require('bcrypt');
 const bodyParser = require('body-parser');
 const Expense=require('../models/Expense');
+const User=require('../models/Signup');
+
 const app = express();
 // app.use (cors ());
 app.use(bodyParser.json({ extended: false }));
@@ -21,10 +23,21 @@ if(isstringValid(amount)||isstringValid(description)||isstringValid(category)){
   return res.status(400).json({e:"Bad Parameter, Something is missing"});
       }
 
-
 // const response=await Expense.create({amount,description,category,userId:req.user.id});//user.id attach in middleware
 const response=await req.user.createExpense({amount,description,category});
-res.status(201).json({expense:response})
+const totalExpense=Number(req.user.totalExpense)+Number(amount);
+User.update({
+  totalExpense:totalExpense
+},{
+  where:{id:req.user.id}
+}).then(async()=>{
+  res.status(200).json({expense:response})
+}).catch(async(e)=>{
+  res.status(500).json({success:false,error:e})
+}).catch(async(e)=>{
+  res.status(500).json({success:false,error:e})
+})
+
   }
   catch(e){
       res.status(500).json(e);
