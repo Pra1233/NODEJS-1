@@ -1,0 +1,64 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+</head>
+
+<body>
+    <div class="all">
+      <div class="forms">
+        <form  onsubmit="onForgot(event)"  method="POST">
+          
+            <div class="input-block">
+              <label >E-mail</label>
+              <input  type="text" class="email" required>
+            </div>
+
+            <div class="div">
+              <button type="submit" class="btn-signup">Continue</button>
+            </div>
+        </form>
+      </div>
+
+    </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.js"></script>  
+ <script>
+  function onForgot(e){
+    e.preventDefault();
+    const email=document.querySelector('.email').value;
+    const obj={  email }
+    PostEmail(obj);
+}
+
+    
+    const PostEmail=async(obj)=>{
+    try{
+        const response= await axios.post('http://localhost:3000/password/forgotpassword',obj);
+        if(response.status===202){
+            document.body.innerHTML+=`<h3 style="color:red;">Mail Successfully Sent</h3>`
+        }
+        else{
+            throw new Error('Something Went wrong');
+        }
+    }
+    catch(e){
+        document.body.innerHTML+=`<h3 style="color:red;">${e}</h3>`
+    console.log(e);
+    }
+    }
+
+</script>
+
+
+
+
+
+</script>
+</body>
+</html>
