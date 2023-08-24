@@ -1,0 +1,170 @@
+*{
+    padding:0;
+    margin:0;
+    border:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+header{
+    height:13vh;
+    width: 100%;
+    background-color: rgb(7, 140, 145);
+    margin-bottom: 1rem;
+}
+h2{
+    color: white;
+    padding: 1rem;
+}
+
+/* h3{
+  padding-bottom: 0.5rem;
+  margin-left: 26rem;
+} */
+.div2{
+    width:60%
+}
+p{
+    padding-right: 9rem;
+    padding-left: 4rem;
+}
+
+*{
+    padding: 0;
+  }
+ head,body{
+    background-color: #ACE1AF;
+  }
+.box{
+  padding: 0.4rem;
+}
+label{
+  color: black;
+  margin: 0.8rem;
+  font-size: large;
+  font-weight: bold;
+}
+.btn{
+border-radius: 13px;
+margin-left: 12px;
+text-align: center;
+}
+
+h2{
+text-align:center;
+font-weight: bold;
+color: #004526;
+margin-top: 3rem;
+background-color: #8db600;
+border: 1px solid grey;
+text-decoration: underline;
+}
+
+
+button:hover{
+  background-color: rgb(1, 1, 1); 
+}
+li{
+  color: black;
+  font-weight: bold;
+  font-size: large;
+list-style-type: none;
+margin-bottom: 1.5rem;
+
+}
+.con{
+  display: flex;
+  justify-content: space-between;
+  border:1px solid black
+  /* background-color: #DADD98; */
+}
+.t1,.t2,.t3{
+  text-align: center;
+  padding-bottom: 23px; 
+ margin-bottom:12px ;
+  border: 1px solid grey;
+  color: wheat;
+  background-color: #367c2b;
+}
+form{
+    margin-top: 3.3rem;
+}
+input,#category{
+ border-radius: 1.7rem;
+ text-align: center;
+ height: 2.2rem;
+ color: black;
+
+}
+.table{
+  display: block;
+  margin-left: 6rem;
+}
+tr{
+display: flex;
+}
+td{
+  border:1px solid rgb(114, 18, 18);
+  width: 12rem;
+  background-color: #fff;
+}
+.td{
+  background-color: rgb(16, 184, 206);
+  color: white;
+}
+
+thead{
+  font-weight:bold;
+}
+
+.li{
+  display: flex;
+}
+
+.btntd{
+  border: none;
+  width: 4rem;
+  margin-bottom: 0.5rem;
+  background-color: #ACE1AF;
+
+}
+.btn{
+  background-color: rgb(16, 184, 206);
+  margin-right: 3rem;
+}
+
+.downloadfile,.tdownload{
+  width: fit-content;
+  background-color: #fff;
+  /* margin-right: 6rem; */
+}
+.tdf{
+  width: 100vw;
+  background-color: rgb(16, 184, 206);
+  color:white;
+  text-align: center;
+}
+
+.a{
+  width: fit-content;
+  color: blueviolet; 
+}
+
+.tdd{
+  width: fit-content;
+}
+
+button,.button,.leaderboard{
+  width: 4.6rem;
+  margin-left: 12px;
+  border-radius: 0.5rem;
+  /* font-size: large; */
+   text-align: center; 
+  background-color: rgb(6, 193, 231);
+  color: white;
+  height: 2.3rem;
+  }  
+
+  .pagination{
+    display: flex;
+  justify-content: center;
+  margin-top: 0.9rem;
+  }

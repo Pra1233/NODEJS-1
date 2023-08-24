@@ -1,0 +1,2 @@
+ENVIRONMENT variable which we passed certain value from outside not hardcode it
+npm i morgan -make logging request data simple

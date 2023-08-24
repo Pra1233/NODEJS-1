@@ -1,0 +1,13 @@
+
+{
+    "env":{
+        "PORT":"3000",
+        "API_KEY":"xsmtpsib-ea4103fafa7736d4e0a2d07a5a331b6e46e5e24452863f5303c0146e538e96d0-MVCsnQ1WSwvydm2E",
+       "RAZORPAY_KEY_ID":"rzp_test_Mk8xUSgc0mwFya",
+       "RAZORPAY_KEY_SECRET":"DcjyhiBlieWQQOZ3w8NGrumU",
+    "SENGRID_API_KEY":"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",
+     " IAM_USER_KEY":"AKIA6LNYX7OY46YKWOFS",
+ "IAM_USER_SECRET":"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"
+        
+    }
+}
